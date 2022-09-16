@@ -1,0 +1,274 @@
+***********************************************************   Source code of the project *****************************************************
+****************************************************************************** Database & Tables Creation with value insertion ***************************************************************************************
+////////////////////////////////////////// create a database ods   //////////////////////////////////////////////////////
+create database ods;
+
+//////////////////////////////////////////  use database  ////////////////////////////////////////////////////
+use ods;
+
+/////////////////////////////////////// create table customers_data ////////////////////////////////////////////////////////
+
+CREATE TABLE `customers_data` (
+  `c_id` int NOT NULL,
+  `c_name` varchar(100) DEFAULT NULL,
+  `c_phone` bigint DEFAULT NULL,
+  `c_address` varchar(100) DEFAULT NULL,
+  `c_email` varchar(100) DEFAULT NULL,
+  `c_dob` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`c_id`)
+)
+
+///////////////////////////////////////////////////////////////insert values into customers_data table/////////////////////////////////////////////////////////////////
+
+insert into customers_data values
+(1101,"Suraj dhanwar",7789445612,	"Navoda bidalaya rd,Bihar,Dhanbad","suraj112@gmail.com","11-jan-1992"),
+(1102,"rahul nigam",998655412,"Navoda bidalaya rd,Bihar,Dhanbad","rn.123@yahoohmail.com","12-may-1997"),
+(1103,"krishika sarkar"	,778112654,"DBC Rd,Krishak samiti,Jalpaiguri","krishikavirgo11@gmail.com","24-june-2000"),
+(1104,"Mr M Dhar",7788999966,"Sector-5,Salt lake rd,Ullashnagar,Mumbai","mithileshdhar32@gmail.com","21-jan-1985"),
+(1105,"arjun thakur singh",771265489,"Suraj tal lake rd,Himachal pradesh","ats.singh1992@yahoomail.com","12-sept-1992"),
+(1106,"akrtiti thakur",998477564,"NJS Club,Near NJP,Desbandhupara,Siliguri","ladyakriti112@gmail.com","11-aug-1995"),
+(1107,"somali das",9645789412,"pachu gopal lane,keoratola rd,kolkata-72","Somalidas72@gmail.com","12-nov-1993"),
+(1108,"Sayan acharya",7797400590,"Debidanga bazaar,Champashari,Siliguri,WB","sacharya1235@gmail.com","11-sept-1993"),
+(1109,"Supratim Sarkar",9645897142,"Milanmore,Lane-28,Desbandhupara,Siliguri","s.sarkar93@gmail.com","03-june-1993"),
+(1110,"Somdeb Chakraborty",8744125564,"Baghajatin Colony,lane-10,Siliguri","somdebmike92@gmail.com","14-dec-1992"),
+(1111,"Sujan Kumar chaubey",8879665412,"Navoda bidalaya rd,Bihar,Dhanbad","suraj112@gmail.com","21-sept-1992"),
+(1112,"prithis kumar",9965441235,"Uttar para,ward-21,lucknow","pk21@gmail.com","13-jul-1992");
+
+///////////////////////////////////////////////////////////create table customer purchase details/////////////////////////////////////////////////////////////////////////////
+
+
+create table purchase(p_id int primary key,c_id int,product varchar(100),price varchar(5000),discount varchar(100),payment_mode varchar(100),order_id int);
+
+////////////////////////////////////////////////////////////////////////////////value inserting inside purchase table////////////////////////////////////////////////////////////////////////////////////////
+
+
+insert into purchase values
+(11,1101,"Boat wireless headset","1560/-","10%","UPI-1102234",112),
+(12,1102,"Scrum blue matters","654/-","00%","SBI-NET BANKING",113),
+(13,1103,"SPONG-BOB BEAN BAG-L","2156/-","03%","CASH ON DELIVERY",114),
+(14,1104,"TUBLESS RIM(RE-350)","3500/-","10%","UPI-2236487",115),
+(15,1105,"IPHONE-13 PRO-64GB","78365/-","20%","UPI-1102234",116),
+(16,1106,"STEELBIRD-PRO HELMET(FF)","3564/-","07%","HDFC-ONLINE PAY",117),
+(17,1107,"TENDA ROUTER-150MBPS","2350/-","10%","UPI-1124567",118),
+(18,1108,"RE-SUMMER GLOVES","1500/-","00%","PAYTM UPI-114568",119),
+(19,1109,"MARVEL AVENGERS PC GAME","2250/-","10%","CASH ON DELIVERY",120),
+(20,1110,"(LAPTOP)DELL INSPRION 4GB-1TB","35000/-","22%","UPI-1102234",121),
+(21,1111,"SAMSUNG GALAXY TAB-MAX","85000/-","25%","UPI-1102234",122),
+(22,1112,"NOISE COLORFIT PRO","2299/-","05%","CASH ON DELIVERY",123);
+
+////////////////////////////////////////////////////////////////////////////////// ADD A COLUMN(FINAL PRICE) INSIDE PURCHASE /////////////////////////////////////////////////////////////////////////
+
+
+ALTER TABLE purchase add column (Final_price varchar(100));
+
+///////////////////////////////////////////////////////////////////////////////////////   insert values inside Final_price  ////////////////////////////////////////////////////////////////////////////////////////////
+
+
+update purchase set Final_price=1560-10/100 where p_id=11;
+update purchase set Final_price="654" where p_id=12;
+update purchase set Final_price=2156-3/100 where p_id=13;
+update purchase set Final_price=3500-10/100 where p_id=14;
+update purchase set Final_price=78365-20/100 where p_id=15;
+update purchase set Final_price=3564-7/100 where p_id=16;
+update purchase set Final_price=2350-10/100 where p_id=17;
+update purchase set Final_price="1500" where p_id=18;
+update purchase set Final_price=2250-10/100 where p_id=19;
+update purchase set Final_price=35000-22/100 where p_id=20;
+update purchase set Final_price= 85000-25/100 where p_id=21;
+update purchase set Final_price=22990-5/100 where p_id=22;
+
+
+//////////////////////////////////////////////////////////////////////////////////   create table customer_order_status  /////////////////////////////////////////////////////////////////////////////////////////////
+
+create table customer_order_status(p_id int primary key,o_id int,c_id int,order_status varchar(100),estimate_date varchar(100));
+
+/////////////////////////////////////////////////////////////////////////////////////  insert values inside customer_order_status table  /////////////////////////////////////////////////////////////////////
+insert into customer_order_status values
+(11,112,1101,"shipped","NA"),
+(12,113,1102,"shipped","NA"),
+(13,114,1103,"processing","12-june"),
+(14,115,1104,"shipped","NA"),
+(15,116,1105,"shipped","NA"),
+(16,117,1106,"out of stock","NA"),
+(17,118,1107,"shipped","NA"),
+(18,119,1108,"shipped","NA"),
+(19,120,1109,"processing","21-june"),
+(20,121,1110,"shipped","NA"),
+(21,122,1111,"returned","25-july"),
+(22,123,1112,"shipped","NA");
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////   add a new column name as delivery_date  /////////////////////////////////////////////////////////////////////////////////////////
+
+alter table customer_order_status add column(delivery_date varchar(100));
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////   add value inside customer_order_status   ////////////////////////////////////////////////////////////////////////////////////////////
+
+update customer_order_status set delivery_date="26th june" where p_id =11;
+update customer_order_status set delivery_date="27th june" where p_id =12;
+update customer_order_status set delivery_date="29th june" where p_id =13;
+update customer_order_status set delivery_date="13th june" where p_id =14;
+update customer_order_status set delivery_date="26th june" where p_id =15;
+update customer_order_status set delivery_date="will be available after in stock" where p_id =16;
+update customer_order_status set delivery_date="26th june" where p_id =17;
+update customer_order_status set delivery_date="21st june" where p_id =18;
+update customer_order_status set delivery_date="21st june" where p_id =19;
+update customer_order_status set delivery_date="27th june" where p_id =20;
+update customer_order_status set delivery_date="28th july" where p_id =21;
+update customer_order_status set delivery_date="22nd june" where p_id =22;
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////// create a table from shipper side to see customers order details   //////////////////////////////////////////////////////////////////////////////////////////////////////
+
+create table shipping_status(s_id int,p_id int,c_id int primary key,c_name varchar(100),order_status varchar(100));
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////   insert values inside the table   //////////////////////////////////////////////////////////////////////////////////////////////////////
+
+insert into shipping_status values
+(321,11,1101,"Suraj dhanwar","shipped"),
+(322,12,1102,"rahul nigam","shipped"),
+(323,13,1103,"krishika sarkar","processing"),
+(324,14,1104,"Mr M Dhar","shipped"),
+(325,15,1105,"arjun thakur singh","shipped"),
+(326,16,1106,"akrtiti thakur","out of stock"),
+(327,17,1107,"somali das","shipped"),
+(328,18,1108,"Sayan acharya","shipped"),
+(329,19,1109,"Supratim Sarkar","processing"),
+(330,20,1110,"Somdeb Chakraborty","shipped"),
+(331,21,1111,"Sujan Kumar chaubey","returned"),
+(332,22,1112,"prithis kumar","shipped");
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////     display the tables datas  //////////////////////////////////////////////////////////////////////////////////////////////////////////
+select * from shipping_status;
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////   create table customer_invoice for customer order details  ///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+create table customer_invoice(c_id int primary key,s_id int,invoice_no varchar(100),invoice_date datetime);
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////   insertion of data inside customer_invoice table   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+insert into customer_invoice values
+(1101,321,"AL11560","2022-06-22"),
+(1102,322,"BG11546","2022-06-15"),
+(1103,323,"LK11234","2022-06-17"),
+(1104,324,"LP445GF","2022-06-21"),
+(1105,325,"LG11091","2022-06-05"),
+(1106,326,"AL25564","2022-06-10"),
+(1107,327,"BK25569","2022-06-07"),
+(1108,328,"DR11223","2022-06-21"),
+(1109,329,"WB11448","2022-06-20"),
+(1110,330,"AL11234","2022-06-21"),
+(1111,331,"LG54879","2022-06-17"),
+(1112,332,"GG11223","2022-06-19");
+
+///////////////////////////////////////////////////////////////////////////////////////////   DISPLAY THE TABLE(customer_invoice)  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+select * from customer_invoice;
+
+
+
+                                                                                                      ***********************************************************    query search and report analysis***********************************************************************
+
+
+
+ ////////////////////////////////////////////////////////////////////////  SQL QWERY 1:-    REPORT FROM CUSTOMER WHERE ORDER STATUS = SHIPPED(CUSTOMET ID,ORDER STATUS,DELIVERY DATE) /////////////////////////////////////////////////////////////////////////
+
+select c_id,order_status,delivery_date from customer_order_status where order_status="Shipped";
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////    -- SQL QWERY 2:-     REPORT WHERE EACH CUSTOMER CAN TRACK THERE ORDER DETAILS AND PRICE DETAILS   ///////////////////////////////////////////////////////////////////////
+select c.c_id,c.c_name,p.p_id,p.order_id,co.order_status from 
+customers_data c
+join
+purchase p
+on c.c_id = p.c_id
+join
+customer_order_status co
+on c.c_id = co.c_id;
+
+///////////////////////////////////////////////////////////////////////////////////////////////////// -- SQL QWERY 3:-    PAYMENT REPORT FROM CUSTOMER SIDE ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+select c.c_id,c.c_name,p.product,p.price,p.Final_price from 
+customers_data c
+join
+purchase p
+on c.c_id = p.c_id;
+////////////////////////////////////////////////////////////////////////////////////////////////// -- SQL QWERY 4:-    PAYMENT MODE OF CUSTOMER REPORT FROM SHIPPER SIDE ////////////////////////////////////////////////////////////////////////////////////////////////
+select co.p_id,co.c_id,s.s_id,p.payment_mode from customer_order_status co
+join
+shipper_data s
+on co.p_id = s.p_id
+join
+purchase p
+on 
+co.c_id = p.c_id;
+//////////////////////////////////////////////////////////////////////////////////////////////////////////// -- SQL QWERY 5:-    REPORT FROM SHIPPER SIDE ABOUT SHIPPING DETAILS //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+select sd.s_id,ss.p_id,sd.product,ss.order_status from
+shipper_data sd
+join 
+shipping_status ss
+on sd.p_id = ss.p_id;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -- SQL QWERY 6:-    PRODUCT PURCHASE REPORT BY CUSTOMER SIDE ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+select c.c_id,p.p_id,p.product from 
+customers_data c 
+join
+purchase p
+on c.c_id=p.c_id;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -- SQL QWERY 7:-    SEARCHING FOR PRODUCT PRICE >= 10000 CLIENT SIDE ///////////////////////////////////////////////////////////////////////////////////////////////
+
+select * from purchase where price >= 10000;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -- SQL QWERY 8:-    SEARCHING FOR PRODUCT DISCOUNT <=15% USING ORDER BY //////////////////////////////////////////////////////////////////////////////////////////////////////
+
+select * from purchase where discount <= "15%"
+order by discount;
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-- SQL QWERY 9:-    DETAILS OF INVOICE REPORT/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+select * from customer_invoice;
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////-- SQL QWERY 10:-    SEACRHING STATUS OF PRODUCTS APPLIYING INVOICE NO//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+select 
+ci.invoice_no,ci.invoice_date,ss.order_status
+from 
+customer_invoice ci
+join
+shipping_status ss
+on ci.c_id = ss.c_id
+order by invoice_no;
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-- SQL QWERY 11:-    SEARCH OF PRODUCT PRICE USING INVOICE NO////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+select ci.invoice_no,p.price from 
+customer_invoice ci
+join
+purchase p
+on ci.c_id = p.c_id
+order by price; 
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-- SQL QWERY 12:-    NEW ENTRIES OF 3 CUSTOMERS IN JULY-AUGUST////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+INSERT INTO customers_data VALUES (1113	,"bishu prasad",7445662144,	"Navoda bidalaya rd,Bihar,Dhanbad","bprasad2@gmail.com","13-nov-1994"),
+(1114,"Rajshekar Venkateswamy",	7885411263,"chilappa lane,sawmi kant rd,kerala","rv2321@gmail.com","21-oct-1995"),
+(1115,"Krishnendu BHattacharya",9609733356,"Hill cart rd,Biswadeep,Siliguri,WB","sbhattacharya92@gmail.com","15-Nov-1992");
+insert into purchase values
+(23,1113,"Boat wireless speaker","2100/-","05%","CASH ON DELIVERY",124,2100-5*100),
+(24,1114,"Men black jeans-L","1300/-","00%","SBI-NET BANKING",125,1300-0*100),
+(25,1115,"SPONG-BOB BEAN BAG-L","2156/-","03%","CASH ON DELIVERY",126,2156-3*100);
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-- SQL QWERY 13:-    UPDATE VALUE INTO FINAL PRICE AT P_ID 22////////////////////////////////////////////////////////////////////////////////////////////////////////////
+UPDATE purchase set Final_price = 2299-5/100 where p_id=22;
+insert into customer_order_status values
+(23,124,1113,"shipped","14-july"),
+(24,125,1114,"shipped","14-july"),
+(25,126,1115,"processing","21-july");
+insert into shipper_data values
+(333,23,"Boat wireless speaker","new delhi,india"),
+(334,24,"Men black jeans-L","Kolkata hub,west bengal"),
+(335,26,"SPONG-BOB BEAN BAG-L","New Delhi,India");
+insert into shipping_status
+values
+(333,23,1113,"bishu prasad","shipped"),
+(334,24,1114,"Rajshekar Venkateswamy","shipped"),
+(335,25,1115,"Krishnendu BHattacharya","processing");
+insert into customer_invoice VALUES
+(1113,333,"AK44587","2022-07-03"),
+(1114,334,"BB44567","2022-07-02"),
+(1115,335,"GG11223","2022-07-02");
+
