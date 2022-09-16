@@ -1,2 +1,2 @@
-# MySQL-Project
-MYSQL project for Delivery System Data Storage
+Delivery System Data Storage
+MYSQL Workbench
