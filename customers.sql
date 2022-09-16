@@ -1,0 +1,1 @@
+SELECT * FROM ods.customers_data;
